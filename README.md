@@ -1,7 +1,11 @@
-# DynFaceRestore: Balancing Fidelity and Quality in Diffusion-Guided Blind Face Restoration with Dynamic Blur-Level Mapping and Guidance
+# [ICCV 2025 - Hightlight] DynFaceRestore: Balancing Fidelity and Quality in Diffusion-Guided Blind Face Restoration with Dynamic Blur-Level Mapping and Guidance
+This repository provides the official implementation of **DynFaceRestore**, a novel blind face restoration approach.  
+The method dynamically adapts diffusion timesteps and guidance strength based on Gaussian-blurry priors, effectively balancing fidelity and detail. 
 
-## Abstract
-Blind Face Restoration aims to recover high-fidelity, detail-rich facial images from unknown degraded inputs, presenting significant challenges in preserving both identity and detail. Pre-trained diffusion models have been increasingly used as image priors to generate fine details. Still, existing methods often use fixed diffusion sampling timesteps and a global guidance scale, assuming uniform degradation. This limitation and potentially imperfect degradation kernel estimation frequently lead to under- or over-diffusion, resulting in an imbalance between fidelity and quality. We propose DynFaceRestore, a novel blind face restoration approach that learns to map any blindly degraded input to Gaussian blurry images. By leveraging these blurry images and their respective Gaussian kernels, we dynamically select the starting timesteps for each blurry image and apply closed-form guidance during the diffusion sampling process to maintain fidelity. Additionally, we introduce a dynamic guidance scaling adjuster that modulates the guidance strength across local regions, enhancing detail generation in complex areas while preserving structural fidelity in contours. This strategy effectively balances the trade-off between fidelity and quality. DynFaceRestore achieves state-of-the-art performance in both quantitative and qualitative evaluations, demonstrating robustness and effectiveness in blind face restoration.
+[📄 Read the Paper (arXiv)](https://arxiv.org/abs/2507.13797)  
+
+## Ours Results + Checkpoints
+[Google Drive (Download here)](https://drive.google.com/drive/folders/1bSC9s8p6SaWs8Q-zNLjo9XSlNm42204Y?usp=sharing)
 
 ## Requirements
 A suitable [conda](https://conda.io/) environment named `DynFaceRestore` can be created and activated with:
@@ -43,6 +47,18 @@ cd models
 ```
 torchrun --nproc_per_node=8 main.py --cfg_path configs/training/uncertainty.yaml --save_dir [Logging Folder]  
 ```
+
+<!-- ## Citation
+If you find this work useful in your research, please consider citing:
+
+```bibtex
+@article{dynfacerestore2025,
+  title   = {DynFaceRestore: Balancing Fidelity and Quality in Diffusion-Guided Blind Face Restoration with Dynamic Blur-Level Mapping and Guidance},
+  author  = {Your Name and Co-authors},
+  journal = {To appear},
+  year    = {2025}
+}
+``` -->
 
 ## Acknowledgement
 
