@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DynFaceRestore: Balancing Fidelity and Quality in Diffusion-Guided
+    Blind Face Restoration with Dynamic Blur-Level Mapping and Guidance</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/icon.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+  <!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://keunhong.com">
+          <span class="icon">
+            <i class="fas fa-home"></i>
+          </span>
+        </a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More Research
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://hypernerf.github.io">
+              HyperNeRF
+            </a>
+            <a class="navbar-item" href="https://nerfies.github.io">
+              Nerfies
+            </a>
+            <a class="navbar-item" href="https://latentfusion.github.io">
+              LatentFusion
+            </a>
+            <a class="navbar-item" href="https://photoshape.github.io">
+              PhotoShape
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </nav> -->
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">DynFaceRestore: Balancing Fidelity and Quality in Diffusion-Guided
+              Blind Face Restoration with Dynamic Blur-Level Mapping and Guidance (ICCV2025)</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                Huu-Phu Do<sup>1</sup>,</span>
+              <span class="author-block">
+                Yu-Wei Chen<sup>1</sup>,</span>
+              <span class="author-block">
+                Yi-Cheng Liao<sup>1</sup>,
+              </span>
+              <span class="author-block">
+                Chi-Wei Hsiao<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Han-Yang Wang<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Wei-Chen Chiu<sup>1</sup>,
+              </span>
+              <span class="author-block">
+                Ching-Chun Huang<sup>1</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>National Yang Ming Chiao Tung University, Taiwan,</span>
+              <span class="author-block"><sup>2</sup>MediaTek Inc., Taiwan</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2507.13797" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2507.13797" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/nycu-acm/DynFaceRestore"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Blind Face Restoration aims to recover high-fidelity, detail-rich facial images from unknown degraded
+              inputs, presenting
+              significant challenges in preserving both identity and detail. Pre-trained diffusion models have been
+              increasingly used
+              as image priors to generate fine details. Still, existing methods often use fixed diffusion sampling
+              timesteps and a
+              global guidance scale, assuming uniform degradation. This limitation and potentially imperfect degradation
+              kernel
+              estimation frequently lead to under- or over-diffusion, resulting in an imbalance between fidelity and
+              quality. We
+              propose DynFaceRestore, a novel blind face restoration approach that learns to map any blindly degraded
+              input to
+              Gaussian blurry images. By leveraging these blurry images and their respective Gaussian kernels, we
+              dynamically select
+              the starting timesteps for each blurry image and apply closed-form guidance during the diffusion sampling
+              process to
+              maintain fidelity. Additionally, we introduce a dynamic guidance scaling adjuster that modulates the
+              guidance strength
+              across local regions, enhancing detail generation in complex areas while preserving structural fidelity in
+              contours.
+              This strategy effectively balances the trade-off between fidelity and quality. DynFaceRestore achieves
+              state-of-the-art
+              performance in both quantitative and qualitative evaluations, demonstrating robustness and effectiveness
+              in blind face
+              restoration.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-3">Performance</h2>
+            <div class="publication-image">
+              <img src="./static/images/PSNR-FID.png" alt="Method illustration" style="max-width:100%; height:auto;" />
+            </div>
+            <div class="content has-text-justified">
+              <p>
+                Blind face restoration demands both high fidelity and
+                rich detail. Compared to other SOTA methods that leverage GAN
+                priors, codebook priors, or diffusion priors, our proposed method,
+                Our method (denoted as an asterisk), demonstrates superior
+                image fidelity (PSNR↑) and quality (FID↓) on the CelebA-Test.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <h2 class="title is-3">Observation</h2>
+          <div class="publication-image">
+            <img src="./static/images/observation.png" alt="Method illustration" style="max-width:100%; height:auto;" />
+          </div>
+          <div class="content has-text-justified">
+            <p>
+              Using DiffFace [41] as an example, let <em>RM</em> represent
+              DiffFace’s restoration model and <em>p<sub>θ</sub></em> the diffusion model. In the t-SNE plot,
+              green and red points denote the features of <em>x<sup>t<sub>400</sub></sup></em> sampled
+              from <em>p<sub>θ</sub>(x<sup>t<sub>400</sub></sup>|ŷ)</em> and
+              <em>p<sub>θ</sub>(x<sup>t<sub>400</sub></sup>|x<sub>0</sub>)</em>, respectively. Here,
+              ŷ, the LQ image restored by <em>RM</em>, is used for diffusion guidance. DiffFace initiates the diffusion
+              process at a
+              fixed
+              <em>t = 400</em>, resulting in under-diffusion (right) for severely degraded LQ images and just enough
+              diffusion for mildly degraded LQ images (left). This underscores the importance of selecting an
+              appropriate starting
+              step.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Method</h2>
+          <div class="publication-image">
+            <img src="static/images/overview.png" alt="Method illustration" style="max-width:100%; height:auto;" />
+          </div>
+          <div class="content has-text-justified">
+            <p>
+              Overview of our proposed DynFaceRestore framework, which consists of three key components: DBLM, DSST, and
+              DGSA (defined
+              in Sec. 4). The upper and lower sections illustrate two independent restoration scenarios with inputs
+              degraded to
+              varying levels. DBLM generates multiple Gaussian-blurred images based on the degradation level of the
+              unknown degraded
+              input. Then, given these blur levels, DSST identifies the optimal starting step for each Gaussian-blurred
+              image via a
+              predefined lookup table, providing sampling guidance to avoid under- or over-diffusion. Lastly, the
+              trained network,
+              DGSA, locally adjusts the guidance scale used in the pre-trained diffusion process, enabling
+              DynFaceRestore to achieve
+              an optimal balance between fidelity and quality.
+            </p>
+          </div>
+
+          <br />
+
+          <h3 class="title is-4">Visual Comparison</h3>
+          <div class="publication-image">
+            <img src="./static/images/result1.png" alt="Method illustration" style="max-width:100%; height:auto;" />
+          </div>
+          <div class="content has-text-justified">
+            <p>
+              Qualitative results on CelebA-Test. Our method achieves high-fidelity reconstruction with visually
+              accurate details,
+              particularly
+              in the mouth, hair, and skin texture. Please zoom in for the best view.
+            </p>
+          </div>
+          <div class="publication-image">
+            <img src="./static/images/result2.png" alt="Method illustration" style="max-width:100%; height:auto;" />
+          </div>
+          <div class="content has-text-justified">
+            <p>
+              Qualitative results from three real-world datasets demonstrate that our restoration method produces more
+              natural features
+              (e.g.,
+              eyes) and realistic details (e.g., hair) compared to other approaches, with improved fidelity. Please zoom
+              in for the
+              best view.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@misc{do2025dynfacerestorebalancingfidelityquality,
+      title={DynFaceRestore: Balancing Fidelity and Quality in Diffusion-Guided Blind Face Restoration with Dynamic Blur-Level
+      Mapping and Guidance},
+      author={Huu-Phu Do and Yu-Wei Chen and Yi-Cheng Liao and Chi-Wei Hsiao and Han-Yang Wang and Wei-Chen Chiu and
+      Ching-Chun Huang},
+      year={2025},
+      eprint={2507.13797},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2507.13797},
+      }</code></pre>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="./static/videos/nerfies_paper.pdf">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+            <p>
+              This means you are free to borrow the <a href="https://github.com/nerfies/nerfies.github.io">source
+                code</a> of this website,
+              we just ask that you link back to this page in the footer.
+              Please remember to remove the analytics code included in the header of the website which
+              you do not want on your website.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
